@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+tasks.register('prepareDocs', Copy) {
+    description = 'Copies HTML, CSS, and images to the docs folder.'
+    group = 'documentation'
+
+    from('src/main/resources/') {
+        include '*/.html', '*/.css', '*/.js', '*/.png', '*/.jpg', '*/.jpeg', '*/.gif', '*/.svg'
+    }
+    into("$rootDir/docs")
+}
